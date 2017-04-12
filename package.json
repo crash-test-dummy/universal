@@ -36,7 +36,7 @@
         "grunt-jsonlint": "1.1.0",
         "fluid-grunt-json5lint": "1.0.0",
         "grunt-shell": "2.1.0",
-        "browserify": "14.0.0",
+        "browserify": "10.0.0",
         "http-browserify": "1.7.0",
         "https-browserify": "0.0.1"
     },
