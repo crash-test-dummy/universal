@@ -48,11 +48,11 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     dnf install -y --disablerepo='*' https://rpm.nodesource.com/pub_#{nodejs_branch}.x/fc/28/x86_64/nodesource-release-fc28-1.noarch.rpm
     dnf install -y --repo=nodesource nodejs-#{nodejs_version}
+    echo "cd #{app_directory}" >> /home/vagrant/.bashrc
   SHELL
 
   # Build application
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    echo "cd #{app_directory}" >> /home/vagrant/.bashrc
     npm install
   SHELL
 
