@@ -10,7 +10,7 @@ pipeline {
   stages {
 				stage('build') {
 				  steps {
-				    sh 'vagrant up'
+				    sh 'DISPLAY=:0 vagrant up'
 				  }
 				}
 
