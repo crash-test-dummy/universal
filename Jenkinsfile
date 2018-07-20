@@ -36,12 +36,12 @@ pipeline {
       parallel {
         stage('Firefox') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem -l Firefox ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port 0 --launch Firefox ci --file tests/testem.js\''
           }
         }
         stage('Chrome') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem -l Chrome ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port 0 --launch Chrome ci --file tests/testem.js\''
           }
         }
         stage('Node') {
@@ -61,7 +61,7 @@ pipeline {
     failure {
       script {
         if (env.CHANGE_ID) {
-          pullRequest.comment("@" + pullRequest.createdBy + ": continuous integration build failed")
+          pullRequest.comment("CI job failed")
         }
       }
     }
