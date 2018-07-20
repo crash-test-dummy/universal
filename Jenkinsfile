@@ -35,6 +35,8 @@ pipeline {
 
   post {
     always {
+      sh 'vagrant halt -f'
+      sleep 5
       sh 'vagrant destroy -f'
     }
  
