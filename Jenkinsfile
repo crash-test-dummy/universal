@@ -22,7 +22,7 @@ pipeline {
 
     stage('Lint') {
       steps {
-        sh 'vagrant ssh -c "$(npm bin)/grunt lint"'
+        sh 'vagrant ssh -c "\$(npm bin)/grunt lint"'
       }
     }
 
@@ -30,17 +30,17 @@ pipeline {
       parallel {
         stage('Firefox') {
           steps {
-            sh 'vagrant ssh -c "$(npm bin)/testem -l Firefox ci --file tests/testem.js"'
+            sh 'vagrant ssh -c "\$(npm bin)/testem -l Firefox ci --file tests/testem.js"'
           }
         }
         stage('Chrome') {
           steps {
-            sh 'vagrant ssh -c "$(npm bin)/testem -l Chrome ci --file tests/testem.js"'
+            sh 'vagrant ssh -c "\$(npm bin)/testem -l Chrome ci --file tests/testem.js"'
           }
         }
         stage('Node') {
           steps {
-            sh 'vagrant ssh -c "$(npm bin)/nyc node tests/all-tests.js"'
+            sh 'vagrant ssh -c "\$(npm bin)/nyc node tests/all-tests.js"'
           }
         }
       }
