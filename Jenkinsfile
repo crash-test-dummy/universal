@@ -9,7 +9,7 @@ pipeline {
 
   environment {
     VM_CPUS = '4'
-    VM_MEMORY = '4096'
+    VM_RAM = '4096'
   }
 
   stages {
