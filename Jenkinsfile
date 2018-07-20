@@ -11,6 +11,7 @@ pipeline {
   options {
     disableConcurrentBuilds()
     timeout(time: 30, unit: 'MINUTES')
+    retry(2)
   }
 
   environment {
@@ -36,12 +37,12 @@ pipeline {
       parallel {
         stage('Firefox') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port 0 --launch Firefox ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Firefox ci --file tests/testem.js\''
           }
         }
         stage('Chrome') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port 0 --launch Chrome ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Chrome ci --file tests/testem.js\''
           }
         }
         stage('Node') {
@@ -54,14 +55,13 @@ pipeline {
   }
 
   post {
-    always {
+    cleanup {
       sh 'vagrant halt -f && vagrant destroy -f' // https://github.com/hashicorp/vagrant/issues/8104
     }
- 
-    failure {
+    always {
       script {
         if (env.CHANGE_ID) {
-          pullRequest.comment("CI job failed")
+          pullRequest.comment("Build status: " + currentBuild.result)
         }
       }
     }
