@@ -5,6 +5,12 @@ pipeline {
 
   triggers {
     issueCommentTrigger('.*ok to test.*')
+    cron('@daily')
+  }
+
+  options {
+    disableConcurrentBuilds()
+    timeout(time: 30, unit: 'MINUTES')
   }
 
   environment {
