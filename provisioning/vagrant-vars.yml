@@ -1,9 +1,0 @@
----
-# Vagrant-specific variables
-nodejs_app_npm_packages:
-  - testem
-
-nodejs_app_commands:
-  - npm install
-
-nodejs_app_install_dir: /home/vagrant/sync/universal
