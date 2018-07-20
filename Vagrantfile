@@ -41,9 +41,9 @@ Vagrant.configure(2) do |config|
 
   # Mounts node_modules in /var/tmp to work around issues in the VirtualBox shared folders
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    sudo mkdir -p /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
-    sudo chown vagrant:vagrant -R /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
-    sudo mount -o bind /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
+    mkdir -p /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
+    chown vagrant:vagrant -R /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
+    mount -o bind /var/tmp/#{app_name}/node_modules #{app_directory}/node_modules
   SHELL
 
   # List additional directories to sync to the VM in your "Vagrantfile.local" file
@@ -80,8 +80,8 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    sudo ansible-galaxy install -fr #{app_directory}/provisioning/requirements.yml
-    sudo UNIVERSAL_VARS_FILE=vagrant-vars.yml PYTHONUNBUFFERED=1 ansible-playbook #{app_directory}/provisioning/playbook.yml --tags="install,configure" --inventory="localhost ansible_connection=local,"
+    ansible-galaxy install -fr #{app_directory}/provisioning/requirements.yml
+    UNIVERSAL_VARS_FILE=vagrant-vars.yml PYTHONUNBUFFERED=1 ansible-playbook #{app_directory}/provisioning/playbook.yml --tags="install,configure" --inventory="localhost ansible_connection=local,"
   SHELL
 
 end
