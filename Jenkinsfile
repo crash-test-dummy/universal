@@ -16,7 +16,7 @@ pipeline {
 
 				stage('lint') {
 				  steps {
-				    sh 'vagrant ssh -c "cd /home/vagrant/sync/universal; $(npm bin)/grunt lint"'
+				    sh 'vagrant ssh -c "cd /home/vagrant/sync/universal; \$(npm bin)/grunt lint"'
 				  }
 				}
 
@@ -35,9 +35,7 @@ pipeline {
 
   post {
     always {
-      sh 'vagrant halt -f'
-      sleep 5
-      sh 'vagrant destroy -f'
+      sh 'vagrant halt -f && sleep 5 && vagrant destroy -f'
     }
  
     failure {
