@@ -11,7 +11,6 @@ pipeline {
   options {
     disableConcurrentBuilds()
     timeout(time: 30, unit: 'MINUTES')
-    notificationContext('blah')
   }
 
   environment {
