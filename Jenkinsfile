@@ -36,12 +36,12 @@ pipeline {
       parallel {
         stage('Firefox') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port \\$((RANDOM+1024)) --launch Firefox ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Firefox ci --file tests/testem.js\''
           }
         }
         stage('Chrome') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port \\$((RANDOM+1024)) --launch Chrome ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Chrome ci --file tests/testem.js\''
           }
         }
         stage('Node') {
