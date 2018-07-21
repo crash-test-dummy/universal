@@ -55,7 +55,7 @@ pipeline {
     always {
       script {
         if (env.CHANGE_ID) {
-          pullRequest.comment("Build [${env.BUILD_NUMBER}](${env.BUILD_URL}) completed with status ${currentBuild.result} in ${currentBuild.durationString}")
+          pullRequest.comment("Build [${env.BUILD_NUMBER}](${env.BUILD_URL}) completed with status ${currentBuild.currentResult} in ${currentBuild.durationString}")
 
         }
       }
