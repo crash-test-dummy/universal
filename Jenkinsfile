@@ -11,6 +11,7 @@ pipeline {
   options {
     disableConcurrentBuilds()
     timeout(time: 30, unit: 'MINUTES')
+    notificationContext('blah')
   }
 
   environment {
@@ -34,14 +35,9 @@ pipeline {
 
     stage('Tests') {
       parallel {
-        stage('Firefox') {
+        stage('Browsers') {
           steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Firefox ci --file tests/testem.js\''
-          }
-        }
-        stage('Chrome') {
-          steps {
-            sh 'vagrant ssh -c \'$(npm bin)/testem --port \$((RANDOM+1024)) --launch Chrome ci --file tests/testem.js\''
+            sh 'vagrant ssh -c \'$(npm bin)/testem ci --parallel 2 --file tests/testem.js\''
           }
         }
         stage('Node') {
@@ -60,7 +56,7 @@ pipeline {
     always {
       script {
         if (env.CHANGE_ID) {
-          pullRequest.comment("Build status: " + currentBuild.result)
+          pullRequest.comment("Build [${env.BUILD_NUMBER}]($env.BUILD_URL) completed with status ${currentBuild.result} in ${currentBuild.durationString")
         }
       }
     }
