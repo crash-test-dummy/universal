@@ -1,4 +1,4 @@
-# GPII Universal
+# GPII Universal test
 
 The package contains cross-platform core components of the GPII personalization infrastructure. This repository should
 not be used directly, but in conjunction with one of the top-level GPII architecture-specific repositories.
